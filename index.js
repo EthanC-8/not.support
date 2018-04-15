@@ -52,6 +52,7 @@ app.get('/get/support', (req, res) => {
   if (req.query.nsfw) query.push('nsfw');
   if (req.query.reason != -1) query.push('reason=' + req.query.reason);
   var querystr = query.join('&');
+  thing = thing.replace(/\(/g, "%28").replace(/\)/g, "%29");
   thing = encodeURIComponent(thing).replace(/%/g, 'ep--');
   var supporturl = `${req.protocol}://${thing}.${verb}.${host}/ed?${querystr}`;
   supporturl = supporturl.replace(/\.+/g, '.'); // Deduplicate periods
