@@ -52,6 +52,7 @@ app.get('/get/support', (req, res) => {
   if (req.query.nsfw) query.push('nsfw');
   if (req.query.reason != -1) query.push('reason=' + req.query.reason);
   var querystr = query.join('&');
+  thing = encodeURIComponent(thing).replace(/%/g, 'ep--');
   var supporturl = `${req.protocol}://${thing}.${verb}.${host}/ed?${querystr}`;
   supporturl = supporturl.replace(/\.+/g, '.'); // Deduplicate periods
   supporturl = supporturl.replace(/[/]{2}\./, '//'); // Leading period after ://
@@ -87,6 +88,10 @@ app.get('/ed', (req, res) => {
   // Subdomains are implicitly in reverse order, which obv. isn't what we want.
   things = things.reverse();
   var thing = things.join(" ");
+
+  // Un-urlencode
+  thing = thing.replace(/ep--/g, '%');
+  thing = decodeURICompontent(thing);
 
   // Choose a random prefix
   var filter = function(line) {
