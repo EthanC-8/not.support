@@ -91,7 +91,7 @@ app.get('/ed', (req, res) => {
 
   // Un-urlencode
   thing = thing.replace(/ep--/g, '%');
-  thing = decodeURICompontent(thing);
+  thing = decodeURIComponent(thing);
 
   // Choose a random prefix
   var filter = function(line) {
