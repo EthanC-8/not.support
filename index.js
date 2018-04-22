@@ -1,6 +1,7 @@
 const express = require('express');
 const striptags = require('striptags');
 const webshot = require('webshot');
+const flip = require('flip-text');
 const path = require('path');
 const ejs = require('ejs');
 const fs = require('fs');
@@ -127,9 +128,9 @@ app.get('/ed', (req, res) => {
       prefix: prefix,
       thing: thing
     });
-  }).replace(/\$custom\s?(.+)/, (match, text) => {
+  }).replace(/\$custom\s?(.*)/, (match, text) => {
     custom = true;
-    var textsplit = /^(.+?)([.,!?])?$/.exec(text);
+    var textsplit = /^(.+?)([.,!?])?$/.exec(text) || [];
     return ejs.render(`<span class="not"><%= text %></span><%= punct %>`, {
       text: textsplit[1],
       punct: textsplit[2]
@@ -137,6 +138,10 @@ app.get('/ed', (req, res) => {
   }).replace(/\$Content/, () => {
     return ejs.render(`<span class="thing"><%= thing %></span>`, {
       thing: thing[0].toUpperCase() + thing.substring(1)
+    });
+  }).replace(/\$ʇuǝʇuoɔ/, () => {
+    return ejs.render(`<span class="thing"><%= thing %></span>`, {
+      thing: flip(thing)
     });
   }).replace(/\$cONTENT/, () => {
     return ejs.render(`<span class="thing"><%= thing %></span>`, {
@@ -146,6 +151,12 @@ app.get('/ed', (req, res) => {
     var THING = thing.toUpperCase();
     return ejs.render(`<span class="thing"><%= thing %></span>`, {
       thing: thing.toUpperCase()
+    });
+  })
+  .replace(/\$class:(\S+)(.+)\$end/, (m, clazz, data) => {
+    return ejs.render(`<span class="${clazz}"><%= thing %></span>`, {
+      class: clazz,
+      thing: data
     });
   })
   .replace(/\$singular:([^ ]+)/g, (m, data) => plural ? '' : data)
