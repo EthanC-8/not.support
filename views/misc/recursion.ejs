@@ -1,0 +1,41 @@
+
+<html>
+  <head>
+    <title>Brain power is not supported</title>
+    <link href="/style.css" type="text/css" rel="stylesheet"/>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="UniQMG">
+    <meta name="twitter:title" content="Not supported">
+    <meta name="twitter:description" content="(╯OwO)╯︵ sᴉɥʇ s,ʇɐɥʍ? Open in browser.">
+    <meta name="twitter:image" content="http://recursion.is.not.support/ed">
+    <meta name="twitter:image:alt" content="(best viewed with Netscape Navigator 4.0 or below on a Pentium 3±1 emulated in Javascript on an Apple IIGS at a screen resolution of 1024x1.)">
+  </head>
+  <body>
+    <style>
+      .recursivethingcontainer {
+        display: inline-block;
+        animation: 2s expand;
+        overflow: hidden;
+      }
+    </style>
+    <div class="unsupported-stuff">
+      <span class="recursivething">Recursion</span> is
+      <span class="not">not supported</span>.<br>
+      <a href="http://recursion.is.not.support/ed">or is it?</a>
+    </div>
+    <script>
+      var root = document.querySelector(".recursivething");
+      root.addEventListener('click', function(evt) {
+      	evt.stopPropagation();
+        var cols = [Math.random()*255, Math.random()*255, Math.random()*255];
+      	cols = cols.map(Math.floor);
+      	var c1 = `rgb(${cols.join(',')})`;
+      	var c2 = `rgb(${cols.map(c => 255 - c).join(',')})`;
+      	var spanner = document.createElement('span');
+      	spanner.innerHTML = ("​ <span class='recursivethingcontainer'><span class='subcontainer'>(<span class='recursivething' style='color:"+c1+"'>recursion</span> is defined as <span class='recursivething' style='color:"+c2+"'>recursion</span>)</span></span>​");
+      	(this != root ? this.parentElement.parentElement : root).insertAdjacentElement('afterend', spanner);
+      	[...spanner.querySelectorAll("span .recursivething")].forEach(e => e.addEventListener('click', arguments.callee));
+      })
+    </script>
+  </body>
+</html>

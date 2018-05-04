@@ -7,4 +7,7 @@
 [{
   "name": "brain power",
   "render": "misc/brainpower.ejs"
+}, {
+  "name": "recursion",
+  "render": "misc/recursion.ejs"
 }]
