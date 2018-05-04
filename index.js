@@ -21,7 +21,7 @@ const prefixes = [];
 const nsfwprefixes = [];
 
 fs.readFileSync('./prefixes', 'utf8').split(/\n/).forEach(line => {
-  line = (line.split(/(?:[^\\]#)/)[0] || "").trim()
+  line = (line.split(/(?:[^\\]#)/)[0] || "").trim();
   if (line.length == 0 || line.startsWith('#')) return;
 
   let nsfw = line.startsWith('!');
@@ -32,6 +32,11 @@ fs.readFileSync('./prefixes', 'utf8').split(/\n/).forEach(line => {
   }
   return line;
 });
+
+const eggfile = fs.readFileSync('./eastereggs', 'utf8').split('\n').map(ln => {
+  return (ln.split('#')[0] || "").trim();
+}).join('')
+const eggs = JSON.parse(eggfile);
 
 app.get('/', (req, res) => {
   if (req.subdomains.length > 0) {
@@ -90,6 +95,14 @@ app.get('/ed', (req, res) => {
   // Subdomains are implicitly in reverse order, which obv. isn't what we want.
   things = things.reverse();
   var thing = things.join(" ");
+
+  // Check for easter eggs!
+  var eggdex = eggs.map(egg => egg.name).indexOf(thing);
+  if (eggdex != -1) {
+    var egg = eggs[eggdex];
+    if (egg.redirect) return res.redirect(egg.redirect);
+    if (egg.render) return res.render(egg.render);
+  }
 
   // Un-urlencode
   thing = thing.replace(/ep--/g, '%');

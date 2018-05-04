@@ -1,0 +1,10 @@
+# Easter eggs!
+# This one's just JSON
+# {String} rame: Specify easter egg name
+# {String} render: render a specific page
+# {String} redirect: redirect to a url
+
+[{
+  "name": "brain power",
+  "render": "misc/brainpower.ejs"
+}]
