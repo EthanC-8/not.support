@@ -12,9 +12,15 @@
   </head>
   <body>
     <style>
-      span.recursivething { color: blue; }
-      .recursivethingcontainer {
+      @keyframes expand {
+        0% { max-width: 0px }
+        100% { max-width: 320px }
+      }
+      .unsupported-stuff > span.recursivething {
         text-decoration: underline;
+        color: blue;
+      }
+      .recursivethingcontainer {
         display: inline-block;
         text-align: center;
         white-space: nowrap;
