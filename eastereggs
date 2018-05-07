@@ -10,4 +10,7 @@
 }, {
   "name": "recursion",
   "render": "misc/recursion.ejs"
+}, {
+  "name": "blurple",
+  "render": "misc/blurple.ejs"
 }]
