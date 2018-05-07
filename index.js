@@ -101,7 +101,9 @@ app.get('/ed', (req, res) => {
   if (eggdex != -1) {
     var egg = eggs[eggdex];
     if (egg.redirect) return res.redirect(egg.redirect);
-    if (egg.render) return res.render(egg.render);
+    if (egg.render) return res.render(egg.render, {
+      center: req.headers.center
+    });
   }
 
   // Un-urlencode
